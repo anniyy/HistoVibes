@@ -1,0 +1,6 @@
+flask
+pymongo
+flask_pymongo
+pip
+flask-cors
+certifi
