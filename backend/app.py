@@ -7,6 +7,7 @@ from bson import json_util
 import certifi
 from ai_responses import *
 from datetime import datetime
+from flask_cors import cross_origin
 
 uri = "mongodb+srv://uofthacks:Hackathons2024@test.jzwidop.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(uri, tlsCAFile=certifi.where())
@@ -16,10 +17,12 @@ col = db["user_records"]
 app = Flask(__name__)
 
 @app.route('/')
+@cross_origin()
 def index():
     return 'index.html'
 
 @app.route('/user', methods=['POST'])
+@cross_origin()
 def create_user():
     ####check if user exits
     data = json.loads(request.data)
@@ -37,6 +40,7 @@ def get_user(username):
     return json.dumps(result, default=json_util.default)
 
 @app.route('/timeline', methods=['PATCH'])
+@cross_origin()
 def create_timeline():
     data = json.loads(request.data)
     username = data.get('username')
@@ -63,6 +67,7 @@ def get_timeline(username, timeline):
     return jsonify(result.get("timelines").get(timeline))
 
 @app.route('/topic', methods=['PATCH'])
+@cross_origin()
 def create_topic():
     data = json.loads(request.data)
     username = data.get('username')
@@ -103,6 +108,8 @@ def get_quiz(topic):
 def get_questions(topic):
     return create_discussion_questions(topic)
     
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port="5000", debug=True)    
 
 # insertthis = {
 #     "topic": "Games"
