@@ -22,7 +22,7 @@ export default function TimelineDot({ item, isUp }: TimelineDotProps) {
     else setIsClicked(true);
   };
   const dotClassName = `w-6 h-6 rounded-full z-30 ${
-    isHovered ? "bg-[#484A57]" : "bg-blue-500"
+    isHovered ? "bg-[var(--primary-hover)]" : "bg-[var(--primary)]"
   }`;
   //THE VAR ABOVE CHANGES THE DOT COLOR ON HOVER
   const timelineItemStyleUp = {
@@ -50,7 +50,7 @@ export default function TimelineDot({ item, isUp }: TimelineDotProps) {
   return (
     <div className="relative">
       <div className="flex items-center">
-        <div className="flex w-40 h-1 bg-blue-500 translate-x-[-2px]"></div>
+        <div className="flex w-40 h-1 bg-[var(--primary)] translate-x-[-2px]"></div>
         <div
           ref={dotRef}
           className={dotClassName}
@@ -58,11 +58,11 @@ export default function TimelineDot({ item, isUp }: TimelineDotProps) {
           onMouseLeave={handleMouseLeave}
           onClick={handleClick}
         />
-        <div className="flex flex-grow h-1 bg-blue-500"></div>
+        <div className="flex flex-grow h-1 bg-[var(--primary)]"></div>
         {isUp === true ? (
-          <div className="flex w-1 h-12 bg-blue-500 translate-x-[-14px] translate-y-[-20px] z-[-10]"></div>
+          <div className="flex w-1 h-12 bg-[var(--primary)] translate-x-[-14px] translate-y-[-20px] z-[-10]"></div>
         ) : (
-          <div className="flex w-1 h-12 bg-blue-500 translate-x-[-14px] translate-y-[20px] z-[-10]"></div>
+          <div className="flex w-1 h-12 bg-[var(--primary)] translate-x-[-14px] translate-y-[20px] z-[-10]"></div>
         )}
       </div>
       {/* the div above groups the dot and lines as one thing. dont really touch this, its basically good enough */}

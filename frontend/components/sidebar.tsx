@@ -2,7 +2,7 @@ import React from "react";
 
 const Sidebar = () => {
   return (
-    <div className="overflow-hidden bg-gray-800 text-white w-[260px] space-y-6 py-7 px-2 absolute top-0 left-0 h-full flex flex-col justify-between z-10">
+    <div className="bg-gray-800 text-white w-64 space-y-6 py-7 px-2 absolute top-0 left-0 h-full flex flex-col justify-between z-10">
       <div>
         <div className="flex items-center space-x-2 px-4">
           <svg
