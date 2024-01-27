@@ -38,13 +38,16 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/histovibes:latest
       -
-        name: SSH into AWS EC2
+        name: Make SSH Key
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_KEY" > key.pem
           sudo chmod 400 key.pem
           ssh-keyscan -H "$IP" >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
+      -
+        name: SSH into AWS EC2
+        run: |
           ssh -i "key.pem" ubuntu@"$IP" sudo docker ps -a
           ssh -i "key.pem" ubuntu@"$IP" "sudo docker ps -a -q | xargs -I {} sudo docker stop {}"
           ssh -i "key.pem" ubuntu@"$IP" "sudo docker ps -a -q | xargs -I {} sudo docker rm {}"
