@@ -1,6 +1,6 @@
 import Timeline from "@/components/timeline";
 import TimelineItem from "@/components/timelineItem";
-import TimelineLine from "@/components/timelineLine";
+// import TimelineLine from "@/components/timelineLine";
 import { useState } from "react";
 
 const timeline = ({

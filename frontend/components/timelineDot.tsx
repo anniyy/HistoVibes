@@ -1,12 +1,13 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import TimelineItem from "./timelineItem";
 
 interface TimelineDotProps {
   item: (string | number | null)[];
+  isUp: boolean;
 }
 
-export default function TimelineDot({ item }: TimelineDotProps) {
+export default function TimelineDot({ item, isUp }: TimelineDotProps) {
   const [isHovered, setIsHovered] = useState(false);
   const dotRef = useRef<HTMLDivElement | null>(null); //USED TO CALCULATE POSITION FOR TIMELINEITEM DO NOT DELETE
   const handleMouseEnter = () => {
@@ -19,13 +20,23 @@ export default function TimelineDot({ item }: TimelineDotProps) {
     isHovered ? "bg-[#484A57]" : "bg-blue-500"
   }`;
   //THE VAR ABOVE CHANGES THE DOT COLOR ON HOVER
-  const timelineItemStyle = {
+  const timelineItemStyleUp = {
     position: "absolute",
     left: "50%",
     marginLeft: `-${
       dotRef.current?.offsetWidth ? dotRef.current.offsetWidth / 2 : 0
     }px`,
-    top: `-90px`,
+    top: `-80px`,
+    width: "100%",
+    textAlign: "center",
+  } as React.CSSProperties;
+  const timelineItemStyleDown = {
+    position: "absolute",
+    left: "50%",
+    marginLeft: `-${
+      dotRef.current?.offsetWidth ? dotRef.current.offsetWidth / 2 : 0
+    }px`,
+    top: `60px`,
     width: "100%",
     textAlign: "center",
   } as React.CSSProperties;
@@ -34,7 +45,7 @@ export default function TimelineDot({ item }: TimelineDotProps) {
   return (
     <div className="relative">
       <div className="flex items-center">
-        <div className="flex w-40 h-1 bg-blue-500"></div>
+        <div className="flex w-40 h-1 bg-blue-500 translate-x-[-2px]"></div>
         <div
           ref={dotRef}
           className={dotClassName}
@@ -42,11 +53,53 @@ export default function TimelineDot({ item }: TimelineDotProps) {
           onMouseLeave={handleMouseLeave}
         />
         <div className="flex flex-grow h-1 bg-blue-500"></div>
+        {isUp === true ? (
+          <div className="flex w-1 h-12 bg-blue-500 translate-x-[-14px] translate-y-[-20px] z-[-10]"></div>
+        ) : (
+          <div className="flex w-1 h-12 bg-blue-500 translate-x-[-14px] translate-y-[20px] z-[-10]"></div>
+        )}
       </div>
       {/* the div above groups the dot and lines as one thing. dont really touch this, its basically good enough */}
-      {isHovered && (
-        <div style={timelineItemStyle}>
-          <TimelineItem title={item[0]} year={item[1]} />
+
+      {isUp === true ? (
+        <div style={timelineItemStyleUp}>
+          {isHovered ? (
+            <TimelineItem
+              title={item[0]}
+              year={item[1]}
+              description={item[2]}
+              expanded={isHovered}
+              isUp={isUp}
+            />
+          ) : (
+            <TimelineItem
+              title={item[0]}
+              year={item[1]}
+              description={null}
+              expanded={isHovered}
+              isUp={isUp}
+            />
+          )}
+        </div>
+      ) : (
+        <div style={timelineItemStyleDown}>
+          {isHovered ? (
+            <TimelineItem
+              title={item[0]}
+              year={item[1]}
+              description={item[2]}
+              expanded={isHovered}
+              isUp={isUp}
+            />
+          ) : (
+            <TimelineItem
+              title={item[0]}
+              year={item[1]}
+              description={null}
+              expanded={isHovered}
+              isUp={isUp}
+            />
+          )}
         </div>
       )}
       {/* the if statement to show timelineitem */}
