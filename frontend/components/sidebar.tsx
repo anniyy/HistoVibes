@@ -1,9 +1,10 @@
 import React from "react";
+import SidebarButton from "./sidebarbutton";
 
 const Sidebar = () => {
   return (
-    <div className="bg-gray-800 text-white w-64 space-y-6 py-7 px-2 absolute top-0 left-0 h-full flex flex-col justify-between z-10">
-      <div>
+    <div className="overflow-hidden bg-gray-800 text-white w-[260px] space-y-6 py-7 px-2 absolute top-0 left-0 h-full flex flex-col justify-between z-10">
+      <div className="flex flex-col items-start w-full">
         <div className="flex items-center space-x-2 px-4">
           <svg
             className="w-8 h-8 text-white"
@@ -24,26 +25,18 @@ const Sidebar = () => {
           </svg>
           <span className="text-3xl font-semibold my-5">HistoVibes</span>
         </div>
-        <nav>
-          <a href="#" className="block text-lg py-4 px-6 hover:bg-gray-700">
-            Toys
-          </a>
-          <a href="#" className="block text-lg py-4 px-6 hover:bg-gray-700">
-            Shows
-          </a>
-          <a href="#" className="block text-lg py-4 px-6 hover:bg-gray-700">
-            Games
-          </a>
-        </nav>
+        <button className="text-lg py-4 px-6 hover:bg-gray-700 rounded-lg w-full text-center">
+          Add new Timeline
+        </button>
+        <SidebarButton>Toys</SidebarButton>
+        <SidebarButton>Shows</SidebarButton>
+        <SidebarButton>Games</SidebarButton>
       </div>
-      <div className="flex flex-col items-center">
-        <a
-          href="/api/auth/logout"
-          className="block text-lg py-2 px-8 hover:bg-gray-700 mt-auto"
-        >
+      <a href="/api/auth/logout" className="flex flex-col items-center">
+        <button className="text-lg py-2 px-8 hover:bg-gray-700 mt-auto rounded-lg">
           Logout
-        </a>
-      </div>
+        </button>
+      </a>
     </div>
   );
 };
