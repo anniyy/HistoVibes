@@ -69,7 +69,7 @@ export default function TimelineDot({ item, isUp }: TimelineDotProps) {
               year={item[1]}
               description={item[2]}
               expanded={isHovered}
-              isUp={isUp}
+              isup={isUp}
             />
           ) : (
             <TimelineItem
@@ -77,7 +77,7 @@ export default function TimelineDot({ item, isUp }: TimelineDotProps) {
               year={item[1]}
               description={null}
               expanded={isHovered}
-              isUp={isUp}
+              isup={isUp}
             />
           )}
         </div>
@@ -89,7 +89,7 @@ export default function TimelineDot({ item, isUp }: TimelineDotProps) {
               year={item[1]}
               description={item[2]}
               expanded={isHovered}
-              isUp={isUp}
+              isup={isUp}
             />
           ) : (
             <TimelineItem
@@ -97,7 +97,7 @@ export default function TimelineDot({ item, isUp }: TimelineDotProps) {
               year={item[1]}
               description={null}
               expanded={isHovered}
-              isUp={isUp}
+              isup={isUp}
             />
           )}
         </div>
