@@ -30,11 +30,14 @@ def create_user(username=None):
             'username': username,
             'timelines':{}
             })
+        
+        result = list(col.find_one({"username":username}))
+        return jsonify(result.get("timelines"))
+    
     except:
         print("An error has occurred")
-    finally:
-        all = list(col.find({}))
-        return json.dumps(all, default=json_util.default)
+        return ""
+        
 
 @app.route('/user/<username>', methods=['GET'])
 def get_user(username):
