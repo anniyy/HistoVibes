@@ -1,4 +1,6 @@
+import Timeline from "@/components/timeline";
 import TimelineItem from "@/components/timelineItem";
+import TimelineLine from "@/components/timelineLine";
 import { useState } from "react";
 
 const timeline = ({
@@ -47,12 +49,13 @@ const timeline = ({
     ],
   ],
 }) => (
-  <main className="flex flex-row overflow-hidden space-x-6 w-fit m-[3.9vh] ml-[300px] h-[90vh]">
-    {inputs.map((input, index) => (
+  <main className="flex overflow-hidden space-x-6 w-fit m-[3.9vh] ml-[300px] h-[90vh]">
+    {/* {inputs.map((input, index) => (
       <div key={index}>
-        <TimelineItem input={input} />
+        <TimelineItem title={input[0]} year={input[1]} />
       </div>
-    ))}
+    ))} */}
+    <Timeline items={inputs} />
   </main>
 );
 export default timeline;
