@@ -84,6 +84,7 @@ def create_timeline():
         return json.dumps(all, default=json_util.default)
 
 @app.route('/timeline/<username>/<timeline>', methods=['GET'])
+@cross_origin()
 def get_timeline(username, timeline):
     try:
         result = col.find_one({"username":username})
@@ -99,6 +100,7 @@ def get_timeline(username, timeline):
         return ""
 
 @app.route('/topic', methods=['PATCH'])
+@cross_origin()
 def create_topic():
     try:
         data = json.loads(request.data)
