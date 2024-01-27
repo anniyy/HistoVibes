@@ -7,6 +7,7 @@ from flask import Flask, request, jsonify
 from flask_pymongo import PyMongo
 from bson import json_util
 import certifi
+from flask_cors import cross_origin
 
 uri = "mongodb+srv://uofthacks:Hackathons2024@test.jzwidop.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(uri, tlsCAFile=certifi.where())
@@ -16,10 +17,12 @@ col = db["user_records"]
 app = Flask(__name__)
 
 @app.route('/')
+@cross_origin()
 def index():
     return 'index.html'
 
 @app.route('/user', methods=['POST'])
+@cross_origin()
 def create_user():
     data = json.loads(request.data)
     username = data.get('username')
@@ -31,6 +34,7 @@ def create_user():
     return json.dumps(all, default=json_util.default)
 
 @app.route('/timeline', methods=['PATCH'])
+@cross_origin()
 def create_timeline():
     data = json.loads(request.data)
     username = data.get('username')
@@ -50,6 +54,7 @@ def create_timeline():
     return json.dumps(all, default=json_util.default)
 
 @app.route('/topic', methods=['PATCH'])
+@cross_origin()
 def create_topic():
     data = json.loads(request.data)
     username = data.get('username')
@@ -69,7 +74,8 @@ def create_topic():
     all = list(col.find({}))
     return json.dumps(all, default=json_util.default)
 
-    
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port="5000", debug=True)    
 
 # insertthis = {
 #     "topic": "Games"
