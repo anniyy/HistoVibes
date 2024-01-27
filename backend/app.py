@@ -37,7 +37,8 @@ def create_user(username=None):
             'timelines':{}
             })
         
-        result = list(col.find_one({"username":username}))
+        result = col.find_one({"username":username})
+        print(result)
         return jsonify(result.get("timelines"))
     
     except:

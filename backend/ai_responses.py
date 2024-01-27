@@ -25,20 +25,24 @@ def create_description(topic):
         return ""
 
 def get_date(topic):
-    prompt = "When was " + topic + " released, published, or invented. Please give me a date in dd/mm/yyyy format with no words or sentences in your response"
-    completion = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-        {
-            "role": "user", 
-            "content": prompt
-        }
-    ]
-    )
-    date = completion.choices[0].message.content
-    date = datetime.datetime.strptime(date, '%d/%m/%Y').date()
-    date = datetime.datetime.combine(date, datetime.time.min)
-    return date
+    try:
+        prompt = "When was " + topic + " released, published, or invented. Please give me a date in dd/mm/yyyy format with no words or sentences in your response"
+        completion = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+            {
+                "role": "user", 
+                "content": prompt
+            }
+        ]
+        )
+        date = completion.choices[0].message.content
+        date = datetime.datetime.strptime(date, '%d/%m/%Y').date()
+        date = datetime.datetime.combine(date, datetime.time.min)
+        return date
+    except:
+        print("An error has occurred")
+        return null
 
 def create_discussion_questions(topic):
     prompt = "Can you create 3 discussion questions based on the topic " + topic + ' in json format as follows: [{"question": "question1"}, ...]'
