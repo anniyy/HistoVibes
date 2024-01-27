@@ -15,10 +15,10 @@ const NewTimelinePage: React.FC = () => {
   };
 
   return (
-    <div className="flex items-end justify-center h-screen">
+    <div className="flex items-end h-screen">
       <button
         onClick={handleButtonClick}
-        className="bg-blue-500 text-white rounded-full px-4 py-2 translate-y-[-20px] translate-x-[-360px] text-xl"
+        className="bg-blue-500 text-white rounded-full px-4 py-2 translate-y-[-20px] translate-x-[290px] text-xl"
       >
         +
       </button>
