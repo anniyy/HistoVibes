@@ -40,17 +40,12 @@ jobs:
       -
         name: Make SSH Key
         run: |
-          cd backend
           mkdir -p ~/.ssh
-          echo "$SSH_KEY" > key.pem
-          sudo chmod 400 key.pem
-          ssh-keygen -R ubuntu@ec2-18-225-6-18.us-east-2.compute.amazonaws.com
-          # ssh-keyscan -H "$IP" >> ~/.ssh/known_hosts
-          # chmod 644 ~/.ssh/known_hosts
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/key.pem
+          sudo chmod 400 ~/.ssh/key.pem
       -
         name: SSH into AWS EC2
         run: |
-          cd backend
           ssh -i "key.pem" ubuntu@ec2-18-225-6-18.us-east-2.compute.amazonaws.com sudo docker ps -a
           ssh -i "key.pem" ubuntu@ec2-18-225-6-18.us-east-2.compute.amazonaws.com "sudo docker ps -a -q | xargs -I {} sudo docker stop {}"
           ssh -i "key.pem" ubuntu@ec2-18-225-6-18.us-east-2.compute.amazonaws.com "sudo docker ps -a -q | xargs -I {} sudo docker rm {}"
