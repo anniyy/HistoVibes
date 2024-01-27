@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 
 interface TimelineItemProps {
   title: string | number | null;
@@ -15,6 +16,12 @@ function Expanding({
   expanded,
   isup,
 }: TimelineItemProps) {
+  const router = useRouter();
+
+  const handleTakeQuizClick = () => {
+    router.push("/quiz/");
+  };
+
   return (
     <>
       {isup == true ? (
@@ -23,6 +30,12 @@ function Expanding({
             <div>{title}</div>
             <div>{year}</div>
             <div>{description}</div>
+            <button
+              onClick={handleTakeQuizClick}
+              className="bg-blue-300 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded w-[120px] translate-x-[200px] my-4"
+            >
+              Take Quiz
+            </button>
           </div>
         </div>
       ) : (
@@ -31,6 +44,12 @@ function Expanding({
             <div>{title}</div>
             <div>{year}</div>
             <div>{description}</div>
+            <button
+              onClick={handleTakeQuizClick}
+              className="bg-blue-300 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded w-[120px] translate-x-[200px] my-4"
+            >
+              Take Quiz
+            </button>
           </div>
         </div>
       )}

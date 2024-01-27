@@ -11,19 +11,16 @@
   --primary: #635dff;
   --primary-hover: #4a4794;
   --text: #484a57;
-}
-
-.transition-all {
-  transition-duration: 1s;
+  animation-duration: 1s;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 25, 26, 36;
-    --background-end-rgb: #464d5e;
-    --primary-hover: #6f93ed;
-    --primary: #465e9c;
+    --background-end-rgb: ;
+    --primary-hover: #1D4ED8;
+    --primary: #3B82F6;
     --text: #FFF;
   }
 }
