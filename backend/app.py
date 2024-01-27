@@ -1,12 +1,12 @@
 import asyncio
 import json
 from pymongo import MongoClient
-from pymongo.server_api import ServerApi
 import json
 from flask import Flask, request, jsonify
-from flask_pymongo import PyMongo
 from bson import json_util
 import certifi
+from ai_responses import *
+from datetime import datetime
 
 uri = "mongodb+srv://uofthacks:Hackathons2024@test.jzwidop.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(uri, tlsCAFile=certifi.where())
@@ -21,6 +21,7 @@ def index():
 
 @app.route('/user', methods=['POST'])
 def create_user():
+    ####check if user exits
     data = json.loads(request.data)
     username = data.get('username')
     result = db.user_records.insert_one({
@@ -57,6 +58,8 @@ def create_timeline():
 @app.route('/timeline/<username>/<timeline>', methods=['GET'])
 def get_timeline(username, timeline):
     result = col.find_one({"username":username})
+    # result = result.get("timelines").get(timeline)
+    # result.sort("date")
     return jsonify(result.get("timelines").get(timeline))
 
 @app.route('/topic', methods=['PATCH'])
@@ -66,13 +69,21 @@ def create_topic():
     timeline = data.get('timeline')
     topic = data.get('topic')
     path = "timelines." + timeline + "." + topic
+    description = ""
+    date = ""
+    # description = create_description(topic)
+    # date = get_date(topic)
+    date = datetime.strptime(date, '%m-%d-%Y').date()
     db.user_records.update_one(
         {
             "username": username
         }, 
         {
             "$set": {
-                path: {} 
+                path: {
+                    "description": description,
+                    "date": date
+                } 
             }
         }
     )
@@ -81,6 +92,16 @@ def create_topic():
 
 
 
+# Interactive Stuff
+
+@app.route('/quiz/<topic>', methods=['GET'])
+def get_quiz(topic):
+    return create_mc(topic)
+
+
+@app.route('/discussion/<topic>', methods=['GET'])
+def get_questions(topic):
+    return create_discussion_questions(topic)
     
 
 # insertthis = {
