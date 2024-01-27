@@ -2,8 +2,10 @@
 import Sidebar from "@/components/sidebar";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 const Quiz = () => {
+  const { user, error, isLoading } = useUser();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [score, setScore] = useState(0);
@@ -75,8 +77,13 @@ const Quiz = () => {
 
   return (
     <>
-      <Sidebar />
-      <div className="container mx-auto mt-10 ml-[300px] w-[80vh]">
+      {/* <Sidebar
+        setTimeline={handleTimelineNameChange}
+        names={timeLineList}
+        userid={user.nickname}
+        setTimeLineList={setTimeLineList}
+      /> */}
+      <div className="container mx-auto mt-10 ml-[55vh] w-[80vh]">
         {showScore ? (
           <div className="text-center">
             <h2 className="text-2xl font-bold">Quiz Completed!</h2>

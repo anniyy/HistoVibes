@@ -11,7 +11,6 @@ export default function Home() {
   const { user, error, isLoading } = useUser();
   const router = useRouter();
   const axios = require("axios");
-  const apiUrl = "http://18.225.6.18:5000/";
   const [timeLine, settimeLine] = useState("");
   const [timeLineList, setTimeLineList] = useState<string[]>([]);
   useEffect(() => {
