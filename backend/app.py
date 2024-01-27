@@ -87,6 +87,9 @@ def create_timeline():
 def get_timeline(username, timeline):
     try:
         result = col.find_one({"username":username})
+        if result == None:
+            print("No such user")
+            return ""
         x = db.user_records.find_one({"username":username}).get("timelines").get(timeline)
         result= sorted(x.items(), key = lambda x: x[1]['date'])
         print(result)
