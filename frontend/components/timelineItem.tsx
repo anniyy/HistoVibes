@@ -56,7 +56,7 @@ export default function TimelineItem({
           expanded={true}
         />
       ) : (
-        <div className="bg-[#EEEFF5] text-[#484A57] rounded-2xl flex flex-col py-2 text-center">
+        <div className="bg-[var(--background-end-rgb)] text-[var(--text)] rounded-2xl flex flex-col py-2 text-center">
           <div>{title}</div>
           <div>{year}</div>
           <div>{description}</div>

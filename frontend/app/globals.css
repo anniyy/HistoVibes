@@ -7,7 +7,10 @@
   --background-start-rgb: 214, 219, 220;
   /* --background-start-rgb: 255, 255, 255; */
   /* --background-start-rgb: 238, 239, 245; */
-  --background-end-rgb: 255, 255, 255;
+  --background-end-rgb: #EEEFF5;
+  --primary: #635dff;
+  --primary-hover: #4a4794;
+  --text: #484a57;
 }
 
 .transition-all {
@@ -17,8 +20,11 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background-start-rgb: 25, 26, 36;
+    --background-end-rgb: #464d5e;
+    --primary-hover: #6f93ed;
+    --primary: #465e9c;
+    --text: #FFF;
   }
 }
 
