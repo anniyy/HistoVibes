@@ -23,6 +23,7 @@ jobs:
       -
         name: GPT Key
         run: |
+          cd backend
           touch .env
           echo "$secrets.GPT_KEY" >> .env
       -
@@ -39,7 +40,6 @@ jobs:
       -
         name: SSH into AWS EC2
         run: |
-          cd backend
           mkdir -p ~/.ssh
           echo "$SSH_KEY" > key.pem
           sudo chmod 400 key.pem
