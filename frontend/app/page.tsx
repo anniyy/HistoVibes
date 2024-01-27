@@ -18,6 +18,9 @@ export default function Home() {
     console.log(user);
   }, [user]);
   useEffect(() => {
+    console.log(timeLine);
+  }, [timeLine]);
+  useEffect(() => {
     const fetchData = async () => {
       try {
         if (user) {
@@ -44,6 +47,7 @@ export default function Home() {
     router.push("/api/auth/login");
     return null;
   }
+
   return (
     user && (
       <main className="overflow-hidden">
@@ -53,8 +57,12 @@ export default function Home() {
           userid={user.nickname}
           setTimeLineList={setTimeLineList}
         />
-        <NewTimeline />
-        <Timeline name={timeLine} userid={user.nickname} />
+        <NewTimeline
+          name={timeLine}
+          userid={user.nickname}
+          setName={handleTimelineNameChange}
+        />
+        {/* <Timeline name={timeLine} userid={user.nickname} /> */}
       </main>
     )
   );

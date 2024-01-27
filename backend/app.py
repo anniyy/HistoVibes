@@ -1,13 +1,15 @@
+from summarize import *
 import asyncio
 import json
 from pymongo import MongoClient
 import json
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template, url_for
 from bson import json_util
 import certifi
 from ai_responses import *
 from datetime import datetime
 from flask_cors import CORS, cross_origin
+
 
 uri = "mongodb+srv://uofthacks:Hackathons2024@test.jzwidop.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(uri, tlsCAFile=certifi.where())
@@ -152,6 +154,11 @@ def get_quiz(topic):
 @cross_origin()
 def get_questions(topic):
     return create_discussion_questions(topic)
+
+@app.route('/summary/<topic>', methods=['GET'])
+def get_summary(topic):
+    return summarize_message(topic)  
+  
     
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000", debug=True)    
@@ -186,6 +193,3 @@ if __name__ == "__main__":
 #   })
 #   return result
 
-# async def add_timeline(json_body):
-#   body = json.loads(json_body)
-  
