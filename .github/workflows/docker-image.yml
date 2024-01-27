@@ -43,7 +43,7 @@ jobs:
           cd backend
           mkdir -p ~/.ssh
           echo "$SSH_KEY" > key.pem
-          # sudo chmod 400 key.pem
+          sudo chmod 400 key.pem
           # ssh-keyscan -H "$IP" >> ~/.ssh/known_hosts
           # chmod 644 ~/.ssh/known_hosts
       -
