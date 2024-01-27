@@ -61,7 +61,11 @@ def get_timeline(username, timeline):
     result = col.find_one({"username":username})
     # result = result.get("timelines").get(timeline)
     # result.sort("date")
-    return jsonify(result.get("timelines").get(timeline))
+    x = db.user_records.find_one({"username":username}).get("timelines").get(timeline)
+    # print(x)
+    result= sorted(x.items(), key = lambda x: x[1]['date'])
+    print(result)
+    return jsonify(result)
 
 @app.route('/topic', methods=['PATCH'])
 def create_topic():
@@ -113,38 +117,3 @@ def get_quiz(topic):
 @app.route('/discussion/<topic>', methods=['GET'])
 def get_questions(topic):
     return create_discussion_questions(topic)
-    
-
-# insertthis = {
-#     "topic": "Games"
-# }
-
-# myquery = { "username": "conrad", "folders.folder1.topic":"topic1"}
-
-# mydoc = col.find(myquery)
-# print(db.user_records.update_one({"username":"conrad"}, {"$set":{"folders.folder4":{}}}))
-# db.user_records.update_one({"username":"conrad", "folders.folder1": "$elemMatch": {"description":"fndjb", "topic":"topic1"}}, {"$set":{"folders.folder1.$.description":"ivy"}})
-# # print(mydoc)
-# for x in mydoc:
-#   print(x)
-
-# print("done")
-
-# db.user_records.insert_one({
-#     'username': "conradmo",
-#     "folders": {
-#     }
-# })
-
-# async def create_user(json_body):
-#   body = json.loads(json_body)
-#   username = body["username"]
-#   result = await db.user_record.insert_one({
-#     "username": username,
-#     "timelines":{}
-#   })
-#   return result
-
-# async def add_timeline(json_body):
-#   body = json.loads(json_body)
-  

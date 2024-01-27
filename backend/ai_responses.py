@@ -4,7 +4,7 @@ import json
 import datetime
 
 client = OpenAI(
-  api_key="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"
+  api_key="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"
 )
 
 def create_description(topic):
