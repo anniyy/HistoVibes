@@ -43,6 +43,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/key.pem
           sudo chmod 400 ~/.ssh/key.pem
+          ssh-keyscan -H ec2-18-225-6-18.us-east-2.compute.amazonaws.com >> ~/.ssh/known_hosts
       -
         name: SSH into AWS EC2
         run: |
