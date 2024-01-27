@@ -130,11 +130,13 @@ def create_topic():
                     }
                 }
             )
+        x = db.user_records.find_one({"username":username}).get("timelines").get(timeline)
+        result= sorted(x.items(), key = lambda x: x[1]['date'])
+        print(result)
+        return jsonify(result)
     except:
         print("An error has occurred")
-    finally:
-        all = list(col.find({}))
-        return json.dumps(all, default=json_util.default)
+        return json.loads('{}')
 
 
 
