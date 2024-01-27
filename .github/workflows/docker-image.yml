@@ -44,7 +44,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "$SSH_KEY" > key.pem
           sudo chmod 400 key.pem
-          # ssh-keyscan -H "$IP" >> ~/.ssh/known_hosts
+          ssh-keyscan -H "$IP" >> ~/.ssh/known_hosts
           # chmod 644 ~/.ssh/known_hosts
       -
         name: SSH into AWS EC2
