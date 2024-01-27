@@ -30,6 +30,11 @@ def create_user():
     all = list(col.find({}))
     return json.dumps(all, default=json_util.default)
 
+@app.route('/user/<username>', methods=['GET'])
+def get_user(username):
+    result = list(col.find({"username":username}))
+    return json.dumps(result, default=json_util.default)
+
 @app.route('/timeline', methods=['PATCH'])
 def create_timeline():
     data = json.loads(request.data)
@@ -48,6 +53,11 @@ def create_timeline():
     )
     all = list(col.find({}))
     return json.dumps(all, default=json_util.default)
+
+@app.route('/timeline/<username>/<timeline>', methods=['GET'])
+def get_timeline(username, timeline):
+    result = col.find_one({"username":username})
+    return jsonify(result.get("timelines").get(timeline))
 
 @app.route('/topic', methods=['PATCH'])
 def create_topic():
@@ -68,6 +78,8 @@ def create_topic():
     )
     all = list(col.find({}))
     return json.dumps(all, default=json_util.default)
+
+
 
     
 
