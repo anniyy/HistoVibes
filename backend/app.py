@@ -42,7 +42,7 @@ def create_user(username=None):
     
     except:
         print("An error has occurred")
-        return ""
+        return "An error has occured"
         
 
 @app.route('/user/<username>', methods=['GET'])
