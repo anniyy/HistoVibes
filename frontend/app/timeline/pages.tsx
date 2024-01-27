@@ -7,11 +7,43 @@ const timeline = ({
       "This is title",
       1984,
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      null,
+    ],
+    [
+      "This is title",
+      1984,
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      null,
+    ],
+    [
+      "This is title",
+      1984,
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      null,
+    ],
+    [
+      "This is title",
+      1984,
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      null,
+    ],
+    [
+      "This is title",
+      1984,
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      null,
+    ],
+    [
+      "This is title",
+      1984,
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      null,
     ],
     [
       "This is another title",
       2018,
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     ],
   ],
 }) => (
