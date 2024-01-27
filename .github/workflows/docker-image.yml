@@ -1,0 +1,47 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: GPT Key
+        run: |
+          cd backend
+          touch apikeys.py
+          echo 'OPENAI_API_KEY=${{ secrets.GPT_KEY }}' > apikeys.py
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./backend/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/histovibes:latest
+      - name: Make SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/key.pem
+          sudo chmod 400 ~/.ssh/key.pem
+          ssh-keyscan -H ec2-18-225-6-18.us-east-2.compute.amazonaws.com >> ~/.ssh/known_hosts
+      - name: SSH into AWS EC2
+        run: |
+          ssh -i "~/.ssh/key.pem" ubuntu@ec2-18-225-6-18.us-east-2.compute.amazonaws.com sudo docker ps -a
+          ssh -i "~/.ssh/key.pem" ubuntu@ec2-18-225-6-18.us-east-2.compute.amazonaws.com "sudo docker ps -a -q | xargs -I {} sudo docker stop {}"
+          ssh -i "~/.ssh/key.pem" ubuntu@ec2-18-225-6-18.us-east-2.compute.amazonaws.com "sudo docker ps -a -q | xargs -I {} sudo docker rm {}"
+          ssh -i "~/.ssh/key.pem" ubuntu@ec2-18-225-6-18.us-east-2.compute.amazonaws.com sudo docker pull conradmo/histovibes
+          ssh -i "~/.ssh/key.pem" ubuntu@ec2-18-225-6-18.us-east-2.compute.amazonaws.com sudo docker run -d -p 5000:5000 conradmo/histovibes
