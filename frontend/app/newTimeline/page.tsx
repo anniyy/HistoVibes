@@ -47,6 +47,7 @@ const NewTimelinePage = ({ name, userid, setName }: timelineProps) => {
           `http://18.225.6.18:5000/timeline/${userid}/${name}`
         );
         console.log("GET response:", getResponse.data);
+        setTopics(getResponse.data);
       };
       fetchData();
     }
@@ -56,7 +57,7 @@ const NewTimelinePage = ({ name, userid, setName }: timelineProps) => {
   // }, [newTimelineName]);
 
   return (
-    <>
+    <div className="flex items-center">
       <Timeline items={topics}></Timeline>
       <div className="flex items-end h-screen">
         <button
@@ -87,7 +88,7 @@ const NewTimelinePage = ({ name, userid, setName }: timelineProps) => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
