@@ -1,12 +1,12 @@
 import asyncio
 import json
 from pymongo import MongoClient
-from pymongo.server_api import ServerApi
 import json
 from flask import Flask, request, jsonify
-from flask_pymongo import PyMongo
 from bson import json_util
 import certifi
+from ai_responses import *
+from datetime import datetime
 from flask_cors import cross_origin
 
 uri = "mongodb+srv://uofthacks:Hackathons2024@test.jzwidop.mongodb.net/?retryWrites=true&w=majority"
@@ -24,6 +24,7 @@ def index():
 @app.route('/user', methods=['POST'])
 @cross_origin()
 def create_user():
+    ####check if user exits
     data = json.loads(request.data)
     username = data.get('username')
     result = db.user_records.insert_one({
@@ -32,6 +33,11 @@ def create_user():
     })
     all = list(col.find({}))
     return json.dumps(all, default=json_util.default)
+
+@app.route('/user/<username>', methods=['GET'])
+def get_user(username):
+    result = list(col.find({"username":username}))
+    return json.dumps(result, default=json_util.default)
 
 @app.route('/timeline', methods=['PATCH'])
 @cross_origin()
@@ -53,6 +59,13 @@ def create_timeline():
     all = list(col.find({}))
     return json.dumps(all, default=json_util.default)
 
+@app.route('/timeline/<username>/<timeline>', methods=['GET'])
+def get_timeline(username, timeline):
+    result = col.find_one({"username":username})
+    # result = result.get("timelines").get(timeline)
+    # result.sort("date")
+    return jsonify(result.get("timelines").get(timeline))
+
 @app.route('/topic', methods=['PATCH'])
 @cross_origin()
 def create_topic():
@@ -61,19 +74,42 @@ def create_topic():
     timeline = data.get('timeline')
     topic = data.get('topic')
     path = "timelines." + timeline + "." + topic
+    description = ""
+    date = ""
+    # description = create_description(topic)
+    # date = get_date(topic)
+    date = datetime.strptime(date, '%m-%d-%Y').date()
     db.user_records.update_one(
         {
             "username": username
         }, 
         {
             "$set": {
-                path: {} 
+                path: {
+                    "description": description,
+                    "date": date
+                } 
             }
         }
     )
     all = list(col.find({}))
     return json.dumps(all, default=json_util.default)
 
+
+
+# Interactive Stuff
+
+@app.route('/quiz/<topic>', methods=['GET'])
+@cross_origin()
+def get_quiz(topic):
+    return create_mc(topic)
+
+
+@app.route('/discussion/<topic>', methods=['GET'])
+@cross_origin()
+def get_questions(topic):
+    return create_discussion_questions(topic)
+    
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000", debug=True)    
 
