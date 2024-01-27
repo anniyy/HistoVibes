@@ -15,16 +15,22 @@ const Sidebar = () => {
     const fetchData = async () => {
       try {
         if (user) {
-          const requestBody = {
-            username: user.sid,
-          };
-          const response = await axios.get("http://18.225.6.18:5000/user");
-          console.log("API response:", response.data);
+          const url = `${apiUrl}user`; // Adjust the endpoint as needed
+          const response = await fetch(url);
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+
+          const responseData = await response.json();
+          console.log("API response:", responseData);
         }
       } catch (error) {
         console.error("Error making API call:", error.message);
       }
     };
+
+    fetchData();
 
     fetchData(); // Call the function to fetch data when the component mounts or when the user changes
   }, [user]);
