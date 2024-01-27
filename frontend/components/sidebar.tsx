@@ -6,34 +6,33 @@ const Sidebar = () => {
   const { user, error, isLoading } = useUser();
   const axios = require("axios");
   const apiUrl = "http://18.225.6.18:5000/";
-  // useEffect(() => {
-  //   if (user) {
-  //     console.log(user.sid);
-  //   }
-  // }, [user]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (user) {
-          const url = `${apiUrl}user`; // Adjust the endpoint as needed
-          const response = await fetch(url);
+          const requestBody = {
+            username: user.sid,
+          };
+          const getUserResponse = await axios.get(
+            `http://18.225.6.18:5000/user/${user.sid}`
+          );
 
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+          console.log("API response:", getUserResponse.data);
+          if (!getUserResponse.data || getUserResponse.data.length === 0) {
+            const postResponse = await axios.post(
+              `http://18.225.6.18:5000/user`,
+              { username: user.sid }
+            );
+            console.log("POST response:", postResponse.data);
           }
-
-          const responseData = await response.json();
-          console.log("API response:", responseData);
         }
       } catch (error) {
         console.error("Error making API call:", error.message);
       }
     };
 
-    fetchData();
-
     fetchData(); // Call the function to fetch data when the component mounts or when the user changes
-  }, [user]);
+  }, []);
   return (
     <div className="overflow-hidden bg-gray-800 text-white w-[260px] space-y-6 py-7 px-2 absolute top-0 left-0 h-full flex flex-col justify-between z-10">
       <div className="flex flex-col items-start w-full">
