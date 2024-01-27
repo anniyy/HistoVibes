@@ -35,7 +35,7 @@ def create_user():
 @app.route('/user/<username>', methods=['GET'])
 def get_user(username):
     result = list(col.find({"username":username}))
-    return json.dumps(result, default=json_util.default)
+    return jsonify(result.get("timelines"))
 
 @app.route('/timeline', methods=['PATCH'])
 def create_timeline():

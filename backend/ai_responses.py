@@ -4,7 +4,7 @@ import json
 import datetime
 
 client = OpenAI(
-  api_key="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"
+  api_key="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"
 )
 
 def create_description(topic):
@@ -33,6 +33,7 @@ def get_date(topic):
     )
     date = completion.choices[0].message.content
     date = datetime.datetime.strptime(date, '%d/%m/%Y').date()
+    date = datetime.datetime.combine(date, datetime.time.min)
     return date
 
 def create_discussion_questions(topic):
