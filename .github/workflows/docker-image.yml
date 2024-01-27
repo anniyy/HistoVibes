@@ -22,7 +22,7 @@ jobs:
         run: |
           cd backend
           touch apikeys.py
-          echo "$secrets.GPT_KEY" >> apikeys.py
+          echo ${{ secrets.GPT_KEY }} >> apikeys.py
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Build and push
