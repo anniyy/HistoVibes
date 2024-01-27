@@ -33,7 +33,7 @@ const NewTimelinePage = ({ name, userid, setName }: timelineProps) => {
           }
         );
         console.log("Added topic", postResponse.data);
-        setTopics(postResponse.data);
+        await setTopics(postResponse.data);
       };
       fetchData();
     }
@@ -46,8 +46,9 @@ const NewTimelinePage = ({ name, userid, setName }: timelineProps) => {
         const getResponse = await axios.get(
           `http://18.225.6.18:5000/timeline/${userid}/${name}`
         );
+        console.log(`http://18.225.6.18:5000/timeline/${userid}/${name}`);
         console.log("GET response:", getResponse.data);
-        setTopics(getResponse.data);
+        await setTopics(getResponse.data);
       };
       fetchData();
     }
