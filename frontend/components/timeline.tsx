@@ -12,6 +12,7 @@ export default function Timeline({ items }: TimelineProps) {
     <div className="flex items-center mx-8 z-0 px-32">
       <div className="flex">
         {items.map((item, index) => (
+          // makes a new timelinedot (comes with lines on both sides) for every element in the list
           <div key={index} className="flex items-center">
             <TimelineDot item={item} />
           </div>
