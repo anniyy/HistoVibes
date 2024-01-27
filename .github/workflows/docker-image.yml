@@ -40,6 +40,7 @@ jobs:
       -
         name: Make SSH Key
         run: |
+          cd backend
           mkdir -p ~/.ssh
           echo "$SSH_KEY" > key.pem
           sudo chmod 400 key.pem
