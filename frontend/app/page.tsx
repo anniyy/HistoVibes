@@ -5,6 +5,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Timeline from "./timeline/page";
+import NewTimeline from "./newTimeline/page";
 
 export default function Home() {
   const { user, error, isLoading } = useUser();
@@ -52,6 +53,7 @@ export default function Home() {
           userid={user.nickname}
           setTimeLineList={setTimeLineList}
         />
+        <NewTimeline />
         <Timeline name={timeLine} userid={user.nickname} />
       </main>
     )
