@@ -1,9 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import SidebarButton from "./sidebarbutton";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
-const Sidebar = () => {
+interface SidebarProps {
+  names: (string | number | null)[];
+  setTimeline: any;
+  userid: any;
+  setTimeLineList: any;
+}
+
+const Sidebar = ({
+  names,
+  setTimeline,
+  userid,
+  setTimeLineList,
+}: SidebarProps) => {
+  const [isPopupVisible, setPopupVisibility] = useState(false);
+  const [newTimelineName, setNewTimelineName] = useState("");
+  const axios = require("axios");
+
+  const handleAddButtonClick = () => {
+    setPopupVisibility(true);
+  };
+  const handleButtonClick = (timelineName: string | number | null) => {
+    setTimeline(timelineName);
+  };
+  const handleClosePopup = () => {
+    if (newTimelineName.trim() !== "") {
+      // Only add non-empty names to the array
+      const fetchData = async () => {
+        const postResponse = await axios.patch(
+          `http://18.225.6.18:5000/timeline`,
+          {
+            username: userid,
+            timeline: newTimelineName,
+          }
+        );
+        console.log("Added stuff", postResponse.data);
+      };
+      fetchData();
+      setTimeLineList((prevNames: any) => [...prevNames, newTimelineName]);
+    }
+    setNewTimelineName(""); // Reset the input field
+    setPopupVisibility(false);
+  };
+
   return (
-    <div className="bg-gray-800 text-white w-64 space-y-6 py-7 px-2 absolute top-0 left-0 h-full flex flex-col justify-between z-10">
-      <div>
+    <div className="overflow-hidden bg-gray-800 text-white w-[260px] space-y-6 py-7 px-2 absolute top-0 left-0 h-full flex flex-col justify-between z-10">
+      <div className="flex flex-col items-start w-full">
         <div className="flex items-center space-x-2 px-4">
           <svg
             className="w-8 h-8 text-white"
@@ -24,26 +68,45 @@ const Sidebar = () => {
           </svg>
           <span className="text-3xl font-semibold my-5">HistoVibes</span>
         </div>
-        <nav>
-          <a href="#" className="block text-lg py-4 px-6 hover:bg-gray-700">
-            Toys
-          </a>
-          <a href="#" className="block text-lg py-4 px-6 hover:bg-gray-700">
-            Shows
-          </a>
-          <a href="#" className="block text-lg py-4 px-6 hover:bg-gray-700">
-            Games
-          </a>
-        </nav>
-      </div>
-      <div className="flex flex-col items-center">
-        <a
-          href="/api/auth/logout"
-          className="block text-lg py-2 px-8 hover:bg-gray-700 mt-auto"
+        <button
+          className="text-lg py-4 px-6 hover:bg-gray-700 rounded-lg w-full text-center"
+          onClick={handleAddButtonClick}
         >
-          Logout
-        </a>
+          Add new Timeline
+        </button>
+        {isPopupVisible && (
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 border rounded-lg shadow-md z-50">
+            {/* Your popup content, e.g., input field and another button */}
+            <div className="flex gap-4 items-center justify-center">
+              <input
+                type="text"
+                placeholder="Enter timeline name"
+                className="p-2 border rounded text-black"
+                value={newTimelineName}
+                onChange={(e) => setNewTimelineName(e.target.value)}
+              />
+              <button
+                onClick={handleClosePopup}
+                className="bg-gray-700 text-white px-4 py-2 rounded"
+              >
+                Add
+              </button>
+            </div>
+          </div>
+        )}
+        {names.map((name, index) => (
+          <div key={index}>
+            <SidebarButton onClick={() => handleButtonClick(name)}>
+              {name}
+            </SidebarButton>
+          </div>
+        ))}
       </div>
+      <a href="/api/auth/logout" className="flex flex-col items-center">
+        <button className="text-lg py-2 px-8 hover:bg-gray-700 mt-auto rounded-lg">
+          Logout
+        </button>
+      </a>
     </div>
   );
 };

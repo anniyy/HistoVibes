@@ -4,3 +4,5 @@ flask_pymongo
 pip
 flask-cors
 certifi
+python-dotenv
+openai
