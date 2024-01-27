@@ -35,4 +35,4 @@ jobs:
           context: .
           file: ./backend/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/histovibes:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/histovibes:latest
