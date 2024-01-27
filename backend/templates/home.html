@@ -34,9 +34,6 @@
                     <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
                     <a class="nav-item nav-link" id="home" href="/">Home</a>
                     <a class="nav-item nav-link" id="toys" href="/toys">Toys</a>
-                    <a class="nav-item nav-link" id="TVs" href="/TVs">TVs</a>
-                    <a class="nav-item nav-link" id="games" href="/games">Games</a>
-                    <a class="nav-item nav-link" id="fashion" href="/fashion">Fash</a>
                 </div>
             </div>
         </nav>
@@ -44,44 +41,18 @@
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
-                <img class="card-img-top" src="..." alt="Card image cap">
+                <img class="card-img-top" src="{{ image_url }}" alt="Generated Image" >
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <h5 class="card-title">Title</h5>
+                  <p class="card-text">{{summary}}</p>
                 </div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Cras justo odio</li>
-                  <li class="list-group-item">Dapibus ac facilisis in</li>
-                  <li class="list-group-item">Vestibulum at eros</li>
-                </ul>
-                <div class="card-body">
-                  <a href="#" class="card-link">Card link</a>
-                  <a href="#" class="card-link">Another link</a>
+                <div class="list-group">
+                  <b-button v-b-toggle.collapse-1 class="list-group-item list-group-item-action">
+                    <a href="#" class="card-link">Detailed Info</a> </b-button>
                 </div>
             </div>
           </div>
         </div>
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Cras justo odio</li>
-                  <li class="list-group-item">Dapibus ac facilisis in</li>
-                  <li class="list-group-item">Vestibulum at eros</li>
-                </ul>
-                <div class="card-body">
-                  <a href="#" class="card-link">Card link</a>
-                  <a href="#" class="card-link">Another link</a>
-                </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
     <script
         src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
