@@ -27,13 +27,14 @@ def index():
 @app.route('/user', methods=['POST'])
 @cross_origin()
 def create_user():
-    ####check if user exits
     data = json.loads(request.data)
     username = data.get('username')
-    result = db.user_records.insert_one({
-    'username': username,
-    'timelines':{}
-    })
+
+    if not db.user_records.find_one({"username":username}):
+        result = db.user_records.insert_one({
+        'username': username,
+        'timelines':{}
+        })
     all = list(col.find({}))
     return json.dumps(all, default=json_util.default)
 
@@ -41,7 +42,7 @@ def create_user():
 @cross_origin()
 def get_user(username):
     result = list(col.find({"username":username}))
-    return json.dumps(result, default=json_util.default)
+    return jsonify(result.get("timelines"))
 
 @app.route('/timeline', methods=['PATCH'])
 @cross_origin()
@@ -69,7 +70,11 @@ def get_timeline(username, timeline):
     result = col.find_one({"username":username})
     # result = result.get("timelines").get(timeline)
     # result.sort("date")
-    return jsonify(result.get("timelines").get(timeline))
+    x = db.user_records.find_one({"username":username}).get("timelines").get(timeline)
+    # print(x)
+    result= sorted(x.items(), key = lambda x: x[1]['date'])
+    print(result)
+    return jsonify(result)
 
 @app.route('/topic', methods=['PATCH'])
 @cross_origin()
@@ -79,24 +84,34 @@ def create_topic():
     timeline = data.get('timeline')
     topic = data.get('topic')
     path = "timelines." + timeline + "." + topic
-    description = ""
-    date = ""
-    # description = create_description(topic)
-    # date = get_date(topic)
-    date = datetime.strptime(date, '%m-%d-%Y').date()
-    db.user_records.update_one(
-        {
-            "username": username
-        }, 
-        {
-            "$set": {
-                path: {
-                    "description": description,
-                    "date": date
-                } 
+    temp_path = path + ".description"
+
+    # if db.user_records.find({"username":username, temp_path:{}}):
+    #     print("yay")
+    # else:
+    #     print("no")
+
+    q = db.user_records.find_one({"username":username})
+    q = q.get("timelines").get(timeline).get(topic)
+    print(q)
+    print (q == None)
+
+    if q == None:
+        description = create_description(topic)
+        date = get_date(topic)
+        db.user_records.update_one(
+            {
+                "username": username
+            }, 
+            {
+                "$set": {
+                    path: {
+                        "description": description,
+                        "date": date
+                    } 
+                }
             }
-        }
-    )
+        )
     all = list(col.find({}))
     return json.dumps(all, default=json_util.default)
 
