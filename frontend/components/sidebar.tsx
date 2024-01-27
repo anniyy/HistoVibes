@@ -94,7 +94,7 @@ const Sidebar = ({
             </div>
           </div>
         )}
-        {names.map((name, index) => (
+        {names?.map((name, index) => (
           <div key={index}>
             <SidebarButton onClick={() => handleButtonClick(name)}>
               {name}
