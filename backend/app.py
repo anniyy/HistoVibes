@@ -1,4 +1,5 @@
 from flask import Flask, render_template, url_for
+from summarize import *
 
 def create_app():
     app = Flask(__name__)
@@ -17,6 +18,11 @@ app = create_app()
 @app.route('/')
 def index():
     return render_template('home.html')
+
+
+@app.route('/summary/<topic>', methods=['GET'])
+def get_summary(topic):
+    return summarize_message(topic)
 
 if __name__ == '__main__':
     app.run(debug=True)
