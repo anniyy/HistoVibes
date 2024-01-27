@@ -27,8 +27,34 @@ body {
   background: rgb(var(--background-start-rgb));
 }
 
+#overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 10%;
+  background-image: linear-gradient(to right, transparent , rgb(var(--background-start-rgb)));
+  filter: grayscale(100%);
+  z-index: 99; /* Ensure the overlay is on top */
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
 }

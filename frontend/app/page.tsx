@@ -19,7 +19,7 @@ export default function Home() {
 
   return (
     user && (
-      <main className="overflow-y-hidden">
+      <main className="overflow-hidden">
         <Sidebar />
         <Timeline />
       </main>

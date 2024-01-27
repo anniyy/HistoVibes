@@ -9,6 +9,7 @@ interface TimelineDotProps {
 
 export default function TimelineDot({ item, isUp }: TimelineDotProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
   const dotRef = useRef<HTMLDivElement | null>(null); //USED TO CALCULATE POSITION FOR TIMELINEITEM DO NOT DELETE
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -16,7 +17,11 @@ export default function TimelineDot({ item, isUp }: TimelineDotProps) {
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
-  const dotClassName = `w-6 h-6 rounded-full ${
+  const handleClick = () => {
+    if (isClicked) setIsClicked(false);
+    else setIsClicked(true);
+  };
+  const dotClassName = `w-6 h-6 rounded-full z-30 ${
     isHovered ? "bg-[#484A57]" : "bg-blue-500"
   }`;
   //THE VAR ABOVE CHANGES THE DOT COLOR ON HOVER
@@ -51,6 +56,7 @@ export default function TimelineDot({ item, isUp }: TimelineDotProps) {
           className={dotClassName}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          onClick={handleClick}
         />
         <div className="flex flex-grow h-1 bg-blue-500"></div>
         {isUp === true ? (
@@ -63,12 +69,12 @@ export default function TimelineDot({ item, isUp }: TimelineDotProps) {
 
       {isUp === true ? (
         <div style={timelineItemStyleUp}>
-          {isHovered ? (
+          {isClicked ? (
             <TimelineItem
               title={item[0]}
               year={item[1]}
               description={item[2]}
-              expanded={isHovered}
+              expanded={isClicked}
               isup={isUp}
             />
           ) : (
@@ -76,19 +82,19 @@ export default function TimelineDot({ item, isUp }: TimelineDotProps) {
               title={item[0]}
               year={item[1]}
               description={null}
-              expanded={isHovered}
+              expanded={isClicked}
               isup={isUp}
             />
           )}
         </div>
       ) : (
         <div style={timelineItemStyleDown}>
-          {isHovered ? (
+          {isClicked ? (
             <TimelineItem
               title={item[0]}
               year={item[1]}
               description={item[2]}
-              expanded={isHovered}
+              expanded={isClicked}
               isup={isUp}
             />
           ) : (
@@ -96,7 +102,7 @@ export default function TimelineDot({ item, isUp }: TimelineDotProps) {
               title={item[0]}
               year={item[1]}
               description={null}
-              expanded={isHovered}
+              expanded={isClicked}
               isup={isUp}
             />
           )}
