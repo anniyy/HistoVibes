@@ -155,7 +155,7 @@ def get_quiz(topic):
 def get_questions(topic):
     return create_discussion_questions(topic)
 
-  @app.route('/summary/<topic>', methods=['GET'])
+@app.route('/summary/<topic>', methods=['GET'])
 def get_summary(topic):
     return summarize_message(topic)  
   
