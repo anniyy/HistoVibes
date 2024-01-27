@@ -1,6 +1,6 @@
 from openai import OpenAI
 
-client = OpenAI(api_key = "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")
+client = OpenAI(api_key = "")
 
 
 def generate_image(text):
