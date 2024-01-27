@@ -10,7 +10,9 @@ export default function Home() {
   const { user, error, isLoading } = useUser();
   const router = useRouter();
   useEffect(() => {
-    console.log(user);
+    if (user) {
+      console.log(user.sid);
+    }
   }, [user]);
   if (!user && !isLoading) {
     router.push("/api/auth/login");
@@ -19,7 +21,7 @@ export default function Home() {
 
   return (
     user && (
-      <main className="overflow-y-hidden">
+      <main className="overflow-hidden">
         <Sidebar />
         <Timeline />
       </main>
