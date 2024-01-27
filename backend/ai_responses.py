@@ -3,7 +3,7 @@ import os
 import json
 
 client = OpenAI(
-  api_key="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"
+  api_key=""
 )
 
 def create_description(topic):
@@ -33,7 +33,7 @@ def get_date(topic):
     return completion.choices[0].message.content
 
 def create_discussion_questions(topic):
-    prompt = "Can you create 3 discussion questions based on the topic " + topic + " in json format as follows: [{'question': 'question1'}, ...]"
+    prompt = "Can you create 3 discussion questions based on the topic " + topic + ' in json format as follows: [{"question": "question1"}, ...]'
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
@@ -44,9 +44,14 @@ def create_discussion_questions(topic):
     ]
     )
     response = completion.choices[0].message.content
+    response.strip("/n")
+    print(response)
+
     start = response.find("[")
     end = response.rfind("]")
-    response = response[:start] + "{" + response[start+1:end] + "}" + response[end + 1:]
+
+    response = '''%s''' %response[start:end+1]
+    print(response)
     return json.loads(response)
 
 def create_mc(topic):
@@ -59,11 +64,12 @@ def create_mc(topic):
     )
 
     response = completion.choices[0].message.content
+    response.strip("/n")
     print(response)
 
     start = response.find("[")
     end = response.rfind("]")
 
-    response = "{" + response[start+1:end] + "}"
+    response = '''%s''' %response[start:end+1]
     print(response)
     return json.loads(response)
