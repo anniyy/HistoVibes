@@ -7,7 +7,7 @@ from bson import json_util
 import certifi
 from ai_responses import *
 from datetime import datetime
-from flask_cors import cross_origin
+from flask_cors import CORS, cross_origin
 
 uri = "mongodb+srv://uofthacks:Hackathons2024@test.jzwidop.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(uri, tlsCAFile=certifi.where())
@@ -15,6 +15,9 @@ db = client["histovibes"]
 col = db["user_records"]
 
 app = Flask(__name__)
+
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/')
 @cross_origin()
@@ -35,6 +38,7 @@ def create_user():
     return json.dumps(all, default=json_util.default)
 
 @app.route('/user/<username>', methods=['GET'])
+@cross_origin()
 def get_user(username):
     result = list(col.find({"username":username}))
     return json.dumps(result, default=json_util.default)
@@ -60,6 +64,7 @@ def create_timeline():
     return json.dumps(all, default=json_util.default)
 
 @app.route('/timeline/<username>/<timeline>', methods=['GET'])
+@cross_origin()
 def get_timeline(username, timeline):
     result = col.find_one({"username":username})
     # result = result.get("timelines").get(timeline)
