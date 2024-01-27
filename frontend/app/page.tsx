@@ -4,7 +4,7 @@ import Sidebar from "@/components/sidebar";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Timeline from "./timeline/pages";
+import Timeline from "./timeline/page";
 
 export default function Home() {
   const { user, error, isLoading } = useUser();
