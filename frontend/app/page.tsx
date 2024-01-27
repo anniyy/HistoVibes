@@ -53,8 +53,12 @@ export default function Home() {
           userid={user.nickname}
           setTimeLineList={setTimeLineList}
         />
-        <NewTimeline />
-        <Timeline name={timeLine} userid={user.nickname} />
+        <NewTimeline
+          name={timeLine}
+          userid={user.nickname}
+          setName={handleTimelineNameChange}
+        />
+        {/* <Timeline name={timeLine} userid={user.nickname} /> */}
       </main>
     )
   );

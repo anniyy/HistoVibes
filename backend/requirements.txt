@@ -6,3 +6,4 @@ flask-cors
 certifi
 python-dotenv
 openai
+cohere

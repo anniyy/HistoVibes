@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import TimelineItem from "./timelineItem";
 
 interface TimelineDotProps {
-  item: (string | number | null)[];
+  item: string;
   isUp: boolean;
 }
 
