@@ -100,11 +100,13 @@ def create_topic():
 # Interactive Stuff
 
 @app.route('/quiz/<topic>', methods=['GET'])
+@cross_origin()
 def get_quiz(topic):
     return create_mc(topic)
 
 
 @app.route('/discussion/<topic>', methods=['GET'])
+@cross_origin()
 def get_questions(topic):
     return create_discussion_questions(topic)
     
