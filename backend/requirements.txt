@@ -5,3 +5,4 @@ pip
 flask-cors
 certifi
 python-dotenv
+openai
