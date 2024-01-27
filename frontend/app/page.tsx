@@ -10,7 +10,9 @@ export default function Home() {
   const { user, error, isLoading } = useUser();
   const router = useRouter();
   useEffect(() => {
-    console.log(user);
+    if (user) {
+      console.log(user.sid);
+    }
   }, [user]);
   if (!user && !isLoading) {
     router.push("/api/auth/login");

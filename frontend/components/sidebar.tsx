@@ -1,7 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SidebarButton from "./sidebarbutton";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 const Sidebar = () => {
+  const { user, error, isLoading } = useUser();
+  const axios = require("axios");
+  const apiUrl = "http://18.225.6.18:5000/";
+  // useEffect(() => {
+  //   if (user) {
+  //     console.log(user.sid);
+  //   }
+  // }, [user]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (user) {
+          const requestBody = {
+            username: user.sid,
+          };
+          const response = await axios.get("http://18.225.6.18:5000/user");
+          console.log("API response:", response.data);
+        }
+      } catch (error) {
+        console.error("Error making API call:", error.message);
+      }
+    };
+
+    fetchData(); // Call the function to fetch data when the component mounts or when the user changes
+  }, [user]);
   return (
     <div className="overflow-hidden bg-gray-800 text-white w-[260px] space-y-6 py-7 px-2 absolute top-0 left-0 h-full flex flex-col justify-between z-10">
       <div className="flex flex-col items-start w-full">
