@@ -8,17 +8,21 @@ client = OpenAI(
 )
 
 def create_description(topic):
-    prompt = "Write a description about " + topic + " in order to educate someone about it"
-    completion = client.chat.completions.create(
-    model="gpt-3.5-turbo",
-    messages=[
-        {
-            "role": "user", 
-            "content": prompt
-        }
-    ]
-    )
-    return completion.choices[0].message.content
+    try:
+        prompt = "Write a description about " + topic + " in order to educate someone about it"
+        completion = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {
+                "role": "user", 
+                "content": prompt
+            }
+        ]
+        )
+        return completion.choices[0].message.content
+    except:
+        print("An error has occurred")
+        return ""
 
 def get_date(topic):
     prompt = "When was " + topic + " released, published, or invented. Please give me a date in dd/mm/yyyy format with no words or sentences in your response"

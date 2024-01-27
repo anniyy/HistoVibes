@@ -20,90 +20,104 @@ def index():
     return 'index.html'
 
 @app.route('/user', methods=['POST'])
-def create_user():
-    data = json.loads(request.data)
-    username = data.get('username')
+def create_user(username=None):
+    try:
+        data = json.loads(request.data)
+        username = data.get('username')
 
-    if not db.user_records.find_one({"username":username}):
-        result = db.user_records.insert_one({
-        'username': username,
-        'timelines':{}
-        })
-    all = list(col.find({}))
-    return json.dumps(all, default=json_util.default)
+        if not db.user_records.find_one({"username":username}):
+            result = db.user_records.insert_one({
+            'username': username,
+            'timelines':{}
+            })
+    except:
+        print("An error has occurred")
+    finally:
+        all = list(col.find({}))
+        return json.dumps(all, default=json_util.default)
 
 @app.route('/user/<username>', methods=['GET'])
 def get_user(username):
-    result = list(col.find({"username":username}))
-    return jsonify(result.get("timelines"))
+    try:
+        result = list(col.find_one({"username":username}))
+        if result == None:
+            create_user(username)
+        return jsonify(result.get("timelines"))
+    except:
+        print("An error has occurred")
+        return ""
+
 
 @app.route('/timeline', methods=['PATCH'])
 def create_timeline():
-    data = json.loads(request.data)
-    username = data.get('username')
-    timeline = data.get('timeline')
-    path = "timelines." + timeline
-    db.user_records.update_one(
-        {
-            "username":username
-        }, 
-        {
-            "$set": {
-                path :{}
-            }
-        }
-    )
-    all = list(col.find({}))
-    return json.dumps(all, default=json_util.default)
-
-@app.route('/timeline/<username>/<timeline>', methods=['GET'])
-def get_timeline(username, timeline):
-    result = col.find_one({"username":username})
-    # result = result.get("timelines").get(timeline)
-    # result.sort("date")
-    x = db.user_records.find_one({"username":username}).get("timelines").get(timeline)
-    # print(x)
-    result= sorted(x.items(), key = lambda x: x[1]['date'])
-    print(result)
-    return jsonify(result)
-
-@app.route('/topic', methods=['PATCH'])
-def create_topic():
-    data = json.loads(request.data)
-    username = data.get('username')
-    timeline = data.get('timeline')
-    topic = data.get('topic')
-    path = "timelines." + timeline + "." + topic
-    temp_path = path + ".description"
-
-    # if db.user_records.find({"username":username, temp_path:{}}):
-    #     print("yay")
-    # else:
-    #     print("no")
-
-    q = db.user_records.find_one({"username":username})
-    q = q.get("timelines").get(timeline).get(topic)
-    print(q)
-    print (q == None)
-
-    if q == None:
-        description = create_description(topic)
-        date = get_date(topic)
+    try:
+        data = json.loads(request.data)
+        username = data.get('username')
+        timeline = data.get('timeline')
+        path = "timelines." + timeline
         db.user_records.update_one(
             {
-                "username": username
+                "username":username
             }, 
             {
                 "$set": {
-                    path: {
-                        "description": description,
-                        "date": date
-                    } 
+                    path :{}
                 }
             }
         )
-    all = list(col.find({}))
-    return json.dumps(all, default=json_util.default)
+    except:
+        print("An error has occurred")
+    finally:
+        all = list(col.find({}))
+        return json.dumps(all, default=json_util.default)
+
+@app.route('/timeline/<username>/<timeline>', methods=['GET'])
+def get_timeline(username, timeline):
+    try:
+        result = col.find_one({"username":username})
+        x = db.user_records.find_one({"username":username}).get("timelines").get(timeline)
+        result= sorted(x.items(), key = lambda x: x[1]['date'])
+        print(result)
+        return jsonify(result)
+    except:
+        print("An error has occurred")
+        return ""
+
+@app.route('/topic', methods=['PATCH'])
+def create_topic():
+    try:
+        data = json.loads(request.data)
+        username = data.get('username')
+        timeline = data.get('timeline')
+        topic = data.get('topic')
+        path = "timelines." + timeline + "." + topic
+
+        q = db.user_records.find_one({"username":username})
+        q = q.get("timelines").get(timeline).get(topic)
+        print(q)
+        print (q == None)
+
+        if q == None:
+            description = create_description(topic)
+            date = get_date(topic)
+            db.user_records.update_one(
+                {
+                    "username": username
+                }, 
+                {
+                    "$set": {
+                        path: {
+                            "description": description,
+                            "date": date
+                        } 
+                    }
+                }
+            )
+    except:
+        print("An error has occurred")
+    finally:
+        all = list(col.find({}))
+        return json.dumps(all, default=json_util.default)
 
 
 
