@@ -5,8 +5,6 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Timeline from "./timeline/page";
-import { time } from "console";
-import timeline from "./timeline/page";
 
 export default function Home() {
   const { user, error, isLoading } = useUser();
@@ -16,18 +14,18 @@ export default function Home() {
   const [timeLine, settimeLine] = useState("");
   const [timeLineList, setTimeLineList] = useState<string[]>([]);
   useEffect(() => {
-    console.log(timeLine);
-  }, [timeLine]);
+    console.log(user);
+  }, [user]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (user) {
           const requestBody = {
-            username: user.sid,
+            username: user.nickname,
           };
           const postResponse = await axios.post(
             `http://18.225.6.18:5000/user`,
-            { username: user.sid }
+            { username: user.nickname }
           );
           console.log("POST response:", postResponse.data);
           await setTimeLineList(Object.keys(postResponse.data));
@@ -51,10 +49,10 @@ export default function Home() {
         <Sidebar
           setTimeline={handleTimelineNameChange}
           names={timeLineList}
-          userid={user.sid}
+          userid={user.nickname}
           setTimeLineList={setTimeLineList}
         />
-        <Timeline name={timeLine} />
+        <Timeline name={timeLine} userid={user.nickname} />
       </main>
     )
   );
