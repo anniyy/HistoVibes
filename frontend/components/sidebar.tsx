@@ -38,7 +38,7 @@ const Sidebar = () => {
       </div>
       <div className="flex flex-col items-center">
         <a
-          href="#"
+          href="/api/auth/logout"
           className="block text-lg py-2 px-8 hover:bg-gray-700 mt-auto"
         >
           Logout
