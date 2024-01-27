@@ -2,9 +2,10 @@ from openai import OpenAI
 import os
 import json
 import datetime
+from apikeys import OPENAI_API_KEY
 
 client = OpenAI(
-  api_key=""
+  api_key=OPENAI_API_KEY
 )
 
 def create_description(topic):
