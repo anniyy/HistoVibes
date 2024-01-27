@@ -8,7 +8,7 @@ interface TimelineDotProps {
 
 export default function TimelineDot({ item }: TimelineDotProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const dotRef = useRef(null);
+  const dotRef = useRef<HTMLDivElement | null>(null);
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -20,13 +20,14 @@ export default function TimelineDot({ item }: TimelineDotProps) {
   }`;
   const timelineItemStyle = {
     position: "absolute",
-    left: "50%", // Center x position
-    marginLeft: `-${dotRef.current?.offsetWidth / 2}px`, // Adjust for the half width of the dot
-    top: `-90px`, // Adjust the value based on your requirements
-    width: "100%", // Full width
-    textAlign: "center", // Center the content horizontally
-    // display: isHovered ? "block" : "none",
-  };
+    left: "50%",
+    marginLeft: `-${
+      dotRef.current?.offsetWidth ? dotRef.current.offsetWidth / 2 : 0
+    }px`,
+    top: `-90px`,
+    width: "100%",
+    textAlign: "center",
+  } as React.CSSProperties;
   return (
     <div className="relative w-full">
       <div className="flex items-center">

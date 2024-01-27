@@ -13,9 +13,7 @@ export default function Timeline({ items }: TimelineProps) {
       <div className="flex">
         {items.map((item, index) => (
           <div key={index} className="flex items-center">
-            {/* <div className="flex w-40 h-1 bg-blue-500"></div> */}
-            <TimelineDot className="w-full" item={item} />
-            {/* <div className="flex flex-grow h-1 bg-blue-500"></div> */}
+            <TimelineDot item={item} />
           </div>
         ))}
       </div>
