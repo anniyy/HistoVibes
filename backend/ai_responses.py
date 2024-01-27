@@ -1,9 +1,10 @@
 from openai import OpenAI
 import os
 import json
+import datetime
 
 client = OpenAI(
-  api_key=""
+  api_key="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"
 )
 
 def create_description(topic):
@@ -30,7 +31,9 @@ def get_date(topic):
         }
     ]
     )
-    return completion.choices[0].message.content
+    date = completion.choices[0].message.content
+    date = datetime.datetime.strptime(date, '%d/%m/%Y').date()
+    return date
 
 def create_discussion_questions(topic):
     prompt = "Can you create 3 discussion questions based on the topic " + topic + ' in json format as follows: [{"question": "question1"}, ...]'
