@@ -9,8 +9,8 @@ interface TimelineProps {
 
 export default function Timeline({ items }: TimelineProps) {
   console.log("yay " + items);
-  if (items.length === 0) {
-    return null; // or return some default content
+  if (items.length === 0 || items === null) {
+    return <></>; // or return some default content
   }
   return (
     <div className="flex items-center mx-8 z-0 px-32 translate-x-[500px]">
