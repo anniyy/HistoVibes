@@ -51,7 +51,7 @@ const Sidebar = ({
     setPopupVisibility(false);
   };
   useEffect(() => {
-    if (names) {
+    if (names.length !== 0) {
       setHasTimelines(true);
     }
   }, [names, setHasTimelines]);
