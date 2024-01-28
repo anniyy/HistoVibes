@@ -10,7 +10,10 @@ export interface NewTimelinePageProps {
   userid: string | null | undefined;
 }
 
-function NewTimelinePage({ name, userid }: NewTimelinePageProps) {
+export default function NewTimelinePage({
+  name,
+  userid,
+}: NewTimelinePageProps) {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [newTimelineName, setNewTimelineName] = useState("");
   const [topics, setTopics] = useState<{}[]>([]);
@@ -92,5 +95,3 @@ function NewTimelinePage({ name, userid }: NewTimelinePageProps) {
     </div>
   );
 }
-
-export default NewTimelinePage;

@@ -54,7 +54,7 @@ const Quiz = () => {
       });
   }, []);
 
-  const handleOptionSelect = (option) => {
+  const handleOptionSelect = (option: any) => {
     setSelectedOption(option);
 
     if (option === questions[currentQuestion]?.answer) {

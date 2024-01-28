@@ -15,7 +15,7 @@ export default function Timeline({ items }: TimelineProps) {
   return (
     <div className="flex items-center mx-8 z-0 px-32 translate-x-[500px]">
       <div className="flex">
-        {items.map((item, index) => {
+        {items.map((item: any, index) => {
           console.log("Item:", item);
           console.log(item[1].date);
           console.log(item[1].description);

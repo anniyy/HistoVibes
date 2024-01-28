@@ -5,7 +5,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Timeline from "@/components/timeline";
-import NewTimeline from "./newTimeline/page";
+import NewTimeline from "./newTimeline/newtimeline";
 
 export default function Home() {
   const { user, error, isLoading } = useUser();
@@ -33,7 +33,7 @@ export default function Home() {
           console.log("POST response:", postResponse.data);
           await setTimeLineList(Object.keys(postResponse.data));
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error("Error making API call:", error.message);
       }
     };
@@ -59,7 +59,7 @@ export default function Home() {
         <NewTimeline
           name={timeLine}
           userid={user.nickname}
-          setName={handleTimelineNameChange}
+          // setName={handleTimelineNameChange}
         />
         {/* <Timeline name={timeLine} userid={user.nickname} /> */}
       </main>
