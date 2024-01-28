@@ -5,12 +5,12 @@ import Timeline from "@/components/timeline";
 
 const API_BASE_URL = "http://18.225.6.18:5000";
 
-interface TimelineProps {
+interface NewTimelinePageProps {
   name: string;
   userid: string | null | undefined;
 }
 
-const NewTimelinePage: React.FC<TimelineProps> = ({ name, userid }) => {
+const NewTimelinePage: React.FC<NewTimelinePageProps> = ({ name, userid }) => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [newTimelineName, setNewTimelineName] = useState("");
   const [topics, setTopics] = useState<{}[]>([]);
