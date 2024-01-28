@@ -4,12 +4,12 @@ import TimelineItem from "./timelineItem";
 import TimelineDot from "./timelineDot";
 
 interface TimelineProps {
-  items: {}[];
+  items: {}[] | null;
 }
 
 export default function Timeline({ items }: TimelineProps) {
   console.log("yay " + items);
-  if (items.length === 0 || items === null) {
+  if (!Array.isArray(items) || items.length === 0) {
     return <></>; // or return some default content
   }
   return (
