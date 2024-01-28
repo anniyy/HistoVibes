@@ -100,6 +100,21 @@ def get_timeline(username, timeline):
     except:
         print("An error has occurred")
         return ""
+    
+@app.route('/topic/<username>/<timeline>/<topic>', methods={'GET'})
+@cross_origin()
+def get_topic(username, timeline, topic):
+    try:
+        data = json.loads(request.data)
+        username = data.get('username')
+        timeline = data.get('timeline')
+        topic = data.get('topic')
+        result = db.user_records.find_one({"username":username}).get("timelines").get(timeline).get(topic)
+        return jsonify(result)
+    except:
+        print("An error has occurred")
+        return json.loads('{}')
+
 
 @app.route('/topic', methods=['PATCH'])
 @cross_origin()
