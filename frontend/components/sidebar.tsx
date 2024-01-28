@@ -17,6 +17,9 @@ const Sidebar = ({
 }: SidebarProps) => {
   const [isPopupVisible, setPopupVisibility] = useState(false);
   const [newTimelineName, setNewTimelineName] = useState("");
+  const [currentTimeLine, setCurrentTimeLine] = useState<
+    string | number | null
+  >("");
   const axios = require("axios");
 
   const handleAddButtonClick = () => {
@@ -24,6 +27,7 @@ const Sidebar = ({
   };
   const handleButtonClick = (timelineName: string | number | null) => {
     setTimeline(timelineName);
+    setCurrentTimeLine(timelineName);
   };
   const handleClosePopup = () => {
     if (newTimelineName.trim() !== "") {
@@ -96,7 +100,10 @@ const Sidebar = ({
         )}
         {names?.map((name, index) => (
           <div key={index} className="w-full">
-            <SidebarButton onClick={() => handleButtonClick(name)}>
+            <SidebarButton
+              onClick={() => handleButtonClick(name)}
+              current={currentTimeLine}
+            >
               {name}
             </SidebarButton>
           </div>
