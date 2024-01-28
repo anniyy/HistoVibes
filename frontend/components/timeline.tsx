@@ -23,7 +23,7 @@ export default function Timeline({ items }: TimelineProps) {
             <TimelineDot
               key={index}
               name={item[0]}
-              description={""}
+              description={item[1].description}
               date={item[1].date}
               isUp={index % 2 === 1}
             />
