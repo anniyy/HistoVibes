@@ -52,7 +52,7 @@ def create_user(username=None):
 @cross_origin()
 def get_user(username):
     try:
-        result = list(col.find_one({"username":username}))
+        result = col.find_one({"username":username})
         if result == None:
             create_user(username)
         return jsonify(result.get("timelines"))
