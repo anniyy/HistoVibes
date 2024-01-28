@@ -5,7 +5,7 @@ import Timeline from "@/components/timeline";
 
 const API_BASE_URL = "http://18.225.6.18:5000";
 
-interface NewTimelinePageProps {
+export interface NewTimelinePageProps {
   name: string;
   userid: string | null | undefined;
 }
