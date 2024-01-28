@@ -10,7 +10,7 @@ interface NewTimelinePageProps {
   userid: string | null | undefined;
 }
 
-const NewTimelinePage: React.FC<NewTimelinePageProps> = ({ name, userid }) => {
+function NewTimelinePage({ name, userid }: NewTimelinePageProps) {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [newTimelineName, setNewTimelineName] = useState("");
   const [topics, setTopics] = useState<{}[]>([]);
@@ -91,6 +91,6 @@ const NewTimelinePage: React.FC<NewTimelinePageProps> = ({ name, userid }) => {
       </div>
     </div>
   );
-};
+}
 
 export default NewTimelinePage;
