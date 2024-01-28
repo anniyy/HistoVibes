@@ -3,11 +3,18 @@ import React, { useEffect, useRef, useState } from "react";
 import TimelineItem from "./timelineItem";
 
 interface TimelineDotProps {
-  item: string;
+  name: string;
+  description: string;
+  date: string;
   isUp: boolean;
 }
 
-export default function TimelineDot({ item, isUp }: TimelineDotProps) {
+export default function TimelineDot({
+  name,
+  description,
+  date,
+  isUp,
+}: TimelineDotProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const dotRef = useRef<HTMLDivElement | null>(null); //USED TO CALCULATE POSITION FOR TIMELINEITEM DO NOT DELETE
@@ -71,16 +78,16 @@ export default function TimelineDot({ item, isUp }: TimelineDotProps) {
         <div style={timelineItemStyleUp}>
           {isClicked ? (
             <TimelineItem
-              title={item[0]}
-              year={item[1]}
-              description={item[2]}
+              title={name}
+              year={date}
+              description={description}
               expanded={isClicked}
               isup={isUp}
             />
           ) : (
             <TimelineItem
-              title={item[0]}
-              year={item[1]}
+              title={name}
+              year={date}
               description={null}
               expanded={isClicked}
               isup={isUp}
@@ -91,16 +98,16 @@ export default function TimelineDot({ item, isUp }: TimelineDotProps) {
         <div style={timelineItemStyleDown}>
           {isClicked ? (
             <TimelineItem
-              title={item[0]}
-              year={item[1]}
-              description={item[2]}
+              title={name}
+              year={date}
+              description={description}
               expanded={isClicked}
               isup={isUp}
             />
           ) : (
             <TimelineItem
-              title={item[0]}
-              year={item[1]}
+              title={name}
+              year={date}
               description={null}
               expanded={isClicked}
               isup={isUp}

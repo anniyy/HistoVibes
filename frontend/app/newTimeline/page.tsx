@@ -1,17 +1,15 @@
-// newTimeline/page.tsx
-
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Timeline from "@/components/timeline";
 
-interface timelineProps {
+const API_BASE_URL = "http://18.225.6.18:5000";
+
+interface TimelineProps {
   name: string;
   userid: string | null | undefined;
-  setName: any;
 }
 
-const NewTimelinePage = ({ name, userid, setName }: timelineProps) => {
-  const axios = require("axios");
+const NewTimelinePage: React.FC<TimelineProps> = ({ name, userid }) => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [newTimelineName, setNewTimelineName] = useState("");
   const [topics, setTopics] = useState<{}[]>([]);
@@ -20,42 +18,44 @@ const NewTimelinePage = ({ name, userid, setName }: timelineProps) => {
     setIsPopupVisible(true);
   };
 
-  const handleClosePopup = () => {
+  const handleClosePopup = async () => {
     if (newTimelineName.trim() !== "") {
-      // Only add non-empty names to the array
-      const fetchData = async () => {
-        const postResponse = await axios.patch(
-          `http://18.225.6.18:5000/topic`,
-          {
-            username: userid,
-            timeline: name,
-            topic: newTimelineName,
-          }
-        );
-        console.log("Added topic", postResponse.data);
-        await setTopics(postResponse.data);
-      };
-      fetchData();
+      try {
+        const postResponse = await axios.patch(`${API_BASE_URL}/topic`, {
+          username: userid,
+          timeline: name,
+          topic: newTimelineName,
+        });
+        setTopics(postResponse.data);
+      } catch (error) {
+        console.error("Error adding topic:", error);
+      }
     }
-    setNewTimelineName(""); // Reset the input field
+
+    setNewTimelineName("");
     setIsPopupVisible(false);
   };
+
   useEffect(() => {
-    if (name !== "") {
-      const fetchData = async () => {
-        const getResponse = await axios.get(
-          `http://18.225.6.18:5000/timeline/${userid}/${name}`
-        );
-        console.log(`http://18.225.6.18:5000/timeline/${userid}/${name}`);
-        console.log("GET response:", getResponse.data);
-        await setTopics(getResponse.data);
-      };
-      fetchData();
-    }
+    const fetchData = async () => {
+      try {
+        if (name !== "") {
+          const getResponse = await axios.get(
+            `${API_BASE_URL}/timeline/${userid}/${name}`
+          );
+          setTopics(getResponse.data);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
   }, [name]);
-  // useEffect(() => {
-  //   console.log(newTimelineName);
-  // }, [newTimelineName]);
+
+  useEffect(() => {
+    console.log("TOPICS ", topics);
+  }, [topics]);
 
   return (
     <div className="flex items-center">
@@ -70,7 +70,6 @@ const NewTimelinePage = ({ name, userid, setName }: timelineProps) => {
 
         {isPopupVisible && (
           <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 border rounded-lg shadow-md z-50">
-            {/* Your popup content, e.g., input field and another button */}
             <div className="flex gap-4 items-center justify-center">
               <input
                 type="text"
