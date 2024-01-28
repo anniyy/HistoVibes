@@ -72,7 +72,7 @@ export default function NewTimelinePage({
   }, [topics]);
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center overflow-y-auto">
       <Timeline items={topics}></Timeline>
       <div className="flex items-end h-screen">
         {hasTimelines && (
