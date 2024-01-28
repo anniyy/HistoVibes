@@ -89,9 +89,12 @@ export default function NewTimelinePage({
         {isPopupVisible && (
           <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 border rounded-lg shadow-md z-50">
             <div className="flex gap-4 items-center justify-center">
-              <button
-                onClick={() => setIsPopupVisible(false)}
-                className="text-gray-700 hover:text-gray-900"
+            <button
+              onClick={(e) => {
+              e.stopPropagation(); // Prevent event propagation
+              setIsPopupVisible(false);
+              }}
+              className="text-gray-700 hover:text-gray-900"
               >
                 <FontAwesomeIcon icon={faTimes} />
               </button>

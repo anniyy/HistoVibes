@@ -4,12 +4,12 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
+  --background-start-rgb: 220, 197, 170;
   /* --background-start-rgb: 255, 255, 255; */
   /* --background-start-rgb: 238, 239, 245; */
-  --background-end-rgb: #EEEFF5;
-  --primary: #635dff;
-  --primary-hover: #4a4794;
+  --background-end-rgb: #83bbed;
+  --primary: hwb(123 24% 62%);
+  --primary-hover: #274524;
   --text: #484a57;
   animation-duration: 1s;
 }
@@ -19,9 +19,9 @@
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 25, 26, 36;
     --background-end-rgb: ;
-    --primary-hover: #1D4ED8;
-    --primary: #3B82F6;
-    --text: #FFF;
+    --primary-hover: #3652a0;
+    --primary: #4170bd;
+    --text: rgb(232, 217, 186);
   }
 }
 
@@ -37,7 +37,7 @@ body {
   bottom: 0;
   width: 10%;
   background-image: linear-gradient(to right, transparent , rgb(var(--background-start-rgb)));
-  filter: grayscale(100%);
+  filter: grayscale(70%);
   z-index: 99; /* Ensure the overlay is on top */
 }
 
