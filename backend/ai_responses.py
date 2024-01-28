@@ -10,7 +10,7 @@ client = OpenAI(
 
 def create_description(topic):
     try:
-        prompt = "Write a description about " + topic + " in order to educate someone about it. Target response length 150 words"
+        prompt = "Write a description about " + topic + " in order to educate someone about it. Target response length 100 words"
         completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
