@@ -25,21 +25,29 @@ export default function NewTimelinePage({
   };
 
   const handleClosePopup = async () => {
-    if (newTimelineName.trim() !== "") {
-      try {
-        const postResponse = await axios.patch(`${API_BASE_URL}/topic`, {
-          username: userid,
-          timeline: name,
-          topic: newTimelineName,
-        });
-        setTopics(postResponse.data);
-      } catch (error) {
-        console.error("Error adding topic:", error);
+    try {
+      if (newTimelineName.trim() !== "") {
+        await addTopicToTimeline(newTimelineName);
       }
+    } catch (error) {
+      console.error("Error adding topic:", error);
     }
 
     setNewTimelineName("");
     setIsPopupVisible(false);
+  };
+
+  const addTopicToTimeline = async (topicName: string) => {
+    try {
+      const postResponse = await axios.patch(`${API_BASE_URL}/topic`, {
+        username: userid,
+        timeline: name,
+        topic: topicName,
+      });
+      setTopics(postResponse.data);
+    } catch (error) {
+      console.error("Error adding topic:", error);
+    }
   };
 
   useEffect(() => {
