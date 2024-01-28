@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Timeline from "@/components/timeline";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const API_BASE_URL = "http://18.225.6.18:5000";
 
@@ -79,6 +81,12 @@ export default function NewTimelinePage({
         {isPopupVisible && (
           <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 border rounded-lg shadow-md z-50">
             <div className="flex gap-4 items-center justify-center">
+              <button
+                onClick={() => setIsPopupVisible(false)}
+                className="text-gray-700 hover:text-gray-900"
+              >
+                <FontAwesomeIcon icon={faTimes} />
+              </button>
               <input
                 type="text"
                 placeholder="Enter timeline name"

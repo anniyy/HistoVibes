@@ -13,7 +13,7 @@ export default function Timeline({ items }: TimelineProps) {
     return <></>; // or return some default content
   }
   return (
-    <div className="flex items-center mx-8 z-0 px-32 translate-x-[500px]">
+    <div className="flex items-center mx-8 z-0 px-32 translate-x-[300px] overflow-x-auto overflow-y-hidden min-h-screen min-w-screen">
       <div className="flex">
         {items.map((item: any, index) => {
           console.log("Item:", item);
