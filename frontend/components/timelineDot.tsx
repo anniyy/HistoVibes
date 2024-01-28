@@ -28,26 +28,26 @@ export default function TimelineDot({
     if (isClicked) setIsClicked(false);
     else setIsClicked(true);
   };
-  const dotClassName = `w-6 h-6 rounded-full z-30 ${
-    isHovered ? "bg-[var(--primary-hover)]" : "bg-[var(--primary)]"
-  }`;
+  const dotClassName = `w-6 h-6 rounded-full z-30
+  ${isHovered ? "bg-[var(--primary-hover)]" : "bg-[var(--primary)]"}
+  `;
+  const dotStyle: React.CSSProperties = {
+    width: "24px", // Set a fixed width for the dot
+    height: "24px",
+  };
   //THE VAR ABOVE CHANGES THE DOT COLOR ON HOVER
   const timelineItemStyleUp = {
     position: "absolute",
     left: "50%",
-    marginLeft: `-${
-      dotRef.current?.offsetWidth ? dotRef.current.offsetWidth / 2 : 0
-    }px`,
-    top: `-80px`,
+    marginLeft: `-12px`,
+    top: `-110px`,
     width: "100%",
     textAlign: "center",
   } as React.CSSProperties;
   const timelineItemStyleDown = {
     position: "absolute",
     left: "50%",
-    marginLeft: `-${
-      dotRef.current?.offsetWidth ? dotRef.current.offsetWidth / 2 : 0
-    }px`,
+    marginLeft: `-12px`,
     top: `60px`,
     width: "100%",
     textAlign: "center",
@@ -59,7 +59,7 @@ export default function TimelineDot({
       <div className="flex items-center">
         <div className="flex w-40 h-1 bg-[var(--primary)] translate-x-[-2px]"></div>
         <div
-          ref={dotRef}
+          style={dotStyle}
           className={dotClassName}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
