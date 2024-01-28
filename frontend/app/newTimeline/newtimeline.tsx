@@ -8,11 +8,13 @@ const API_BASE_URL = "http://18.225.6.18:5000";
 export interface NewTimelinePageProps {
   name: string;
   userid: string | null | undefined;
+  hasTimelines: boolean;
 }
 
 export default function NewTimelinePage({
   name,
   userid,
+  hasTimelines,
 }: NewTimelinePageProps) {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [newTimelineName, setNewTimelineName] = useState("");
@@ -65,12 +67,14 @@ export default function NewTimelinePage({
     <div className="flex items-center">
       <Timeline items={topics}></Timeline>
       <div className="flex items-end h-screen">
-        <button
-          onClick={handleButtonClick}
-          className="bg-blue-500 text-white rounded-full px-4 py-2 absolute text-xl left-72 bottom-6"
-        >
-          +
-        </button>
+        {hasTimelines && (
+          <button
+            onClick={handleButtonClick}
+            className="bg-blue-500 text-white rounded-full px-4 py-2 absolute text-xl left-72 bottom-6"
+          >
+            +
+          </button>
+        )}
 
         {isPopupVisible && (
           <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 border rounded-lg shadow-md z-50">

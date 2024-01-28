@@ -13,6 +13,7 @@ export default function Home() {
   const axios = require("axios");
   const [timeLine, settimeLine] = useState("");
   const [timeLineList, setTimeLineList] = useState<string[]>([]);
+  const [hasTimelines, setHasTimelines] = useState(false);
   useEffect(() => {
     console.log(user);
   }, [user]);
@@ -55,10 +56,12 @@ export default function Home() {
           names={timeLineList}
           userid={user.nickname}
           setTimeLineList={setTimeLineList}
+          setHasTimelines={setHasTimelines}
         />
         <NewTimeline
           name={timeLine}
           userid={user.nickname}
+          hasTimelines={hasTimelines}
           // setName={handleTimelineNameChange}
         />
         {/* <Timeline name={timeLine} userid={user.nickname} /> */}

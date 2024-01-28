@@ -7,6 +7,7 @@ interface SidebarProps {
   setTimeline: any;
   userid: any;
   setTimeLineList: any;
+  setHasTimelines: any;
 }
 
 const Sidebar = ({
@@ -14,6 +15,7 @@ const Sidebar = ({
   setTimeline,
   userid,
   setTimeLineList,
+  setHasTimelines,
 }: SidebarProps) => {
   const [isPopupVisible, setPopupVisibility] = useState(false);
   const [newTimelineName, setNewTimelineName] = useState("");
@@ -48,6 +50,11 @@ const Sidebar = ({
     setNewTimelineName(""); // Reset the input field
     setPopupVisibility(false);
   };
+  useEffect(() => {
+    if (names) {
+      setHasTimelines(true);
+    }
+  }, [names, setHasTimelines]);
 
   return (
     <div className="overflow-hidden bg-gray-800 text-white w-[260px] space-y-6 py-7 px-2 absolute top-0 left-0 h-full flex flex-col justify-between z-10">
